@@ -1,41 +1,21 @@
-# OS files
-.DS_Store
-Thumbs.db
-Desktop.ini
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
 
-# Editors and IDEs
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
+# Other files and folders
+.settings/
 
-# Environment and secrets
-.env
-.env.*
-!.env.example
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
 
-# Logs and temporary files
-*.log
-logs/
-tmp/
-temp/
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
 
-# Build output and dependencies
-build/
-dist/
-out/
-target/
-node_modules/
-vendor/
-
-# Language caches
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.mypy_cache/
-.gradle/
-
-# Coverage and test output
-coverage/
-.coverage
+[Bb]uild
+third_party/output

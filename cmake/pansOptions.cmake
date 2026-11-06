@@ -1,23 +1,25 @@
-add_library(pans_options INTERFACE)#配置包
+add_library(pans_options INTERFACE)
 
 target_compile_options(pans_options INTERFACE
-    #GCC/Clang 通用选项
-    $<OR:$<CMAKE_CXX_COMPILE_ID:GNU>,$<CMAKE_CXX_COMPILE_ID:Clang>>:
-        -Wall               #常用告警
-        -Wextra             #严重警告
-        -Wpedantic          #严格遵循标准
-        -fno-strict-aliasing #关闭严格编译
-)
-
-target_compile_options(pans_options INTERFACE
-    $<$<AND:$<PLATFORM_ID:Linux>,$<OR,$<CXX_MODULES_COMPILE_ID:GNU>,$<CXX_MODULES_COMPILE_ID:Clang>>>:
-        -fPIC #编译位置无关代码
+    # GCC/Clang 通用选项
+    $<$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>:
+        -Wall
+        -Wextra           # 额外警告（比 -Wall 更严格）
+        -Wpedantic        # 严格遵循标准
+        -fno-strict-aliasing
+        -Wno-builtin-macro-redefined # 消除__FILE__重定义告警
     >
 )
 
 target_compile_options(pans_options INTERFACE
-    $<$<AND:$<PLATFORM_ID:Linux>,$<OR,$<CXX_MODULES_COMPILE_ID:GNU>,$<CXX_MODULES_COMPILE_ID:Clang>>>:
-        -rdynamic #栈回溯需要
+    $<$<AND:$<PLATFORM_ID:Linux>,$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>>:
+        -fPIC       # 编译位置无关代码
+    >
+)
+
+target_link_options(pans_options INTERFACE
+    $<$<AND:$<PLATFORM_ID:Linux>,$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>>:
+        -rdynamic         # 栈回溯需要
     >
 )
 
@@ -53,3 +55,5 @@ if(ENABLE_COVERAGE)
         $<$<CONFIG:Debug>:--coverage>
     )
 endif()
+
+
