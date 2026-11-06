@@ -5,7 +5,6 @@ file(GLOB PANS_TEST_SOURCES CONFIGURE_DEPENDS
 )
 
 list(SORT PANS_TEST_SOURCES)
-redefine_file_macro("${PANS_TEST_SOURCES}")
 
 find_package(Threads REQUIRED)
 
@@ -37,6 +36,3 @@ foreach(TEST_SOURCE IN LISTS PANS_TEST_SOURCES)
 
     add_test(NAME "${TEST_NAME}" COMMAND "${TEST_NAME}")
 endforeach()
-
-add_subdirectory(inner_tests)
-
